@@ -3,6 +3,7 @@ import kotlin.Array
 import kotlin.collections.ArrayDeque
 import kotlin.collections.HashMap
 import kotlin.math.max
+import kotlin.math.min
 
 object Arrays {
 
@@ -384,5 +385,24 @@ object Arrays {
         }
 
         return n+1
+    }
+
+    // Leetcode 152
+    fun maxProduct(nums: IntArray): Int {
+        var product = Int.MIN_VALUE
+        var minProduct = 1
+        var maxProduct = 1
+
+
+        for (n in nums) {
+            if (n < 0) minProduct = maxProduct.also { maxProduct = minProduct }
+
+            maxProduct = max(maxProduct * n, n)
+            minProduct = min(minProduct * n, n)
+
+            product=max(product, maxProduct)
+        }
+
+        return product
     }
 }

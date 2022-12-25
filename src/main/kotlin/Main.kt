@@ -26,7 +26,8 @@ fun main() {
 //        Sorting.mergeSort(intArrayOf(38, 27, 43, 3, 9, 82, 10)).forEach { print("$it ") }
 //    println(Greedy.eraseOverlapIntervals())
 //    PrefixAndSuffix.productExceptSelf(intArrayOf(-1, 1, -3, 3)).forEach { print("$it ") }
-    println(Arrays.firstMissingPositive(intArrayOf(1,2,0)))
+//    println(Arrays.firstMissingPositive(intArrayOf(1,2,0)))
+    println(Arrays.maxProduct(intArrayOf(-2,0,-4)))
 }
 
 
