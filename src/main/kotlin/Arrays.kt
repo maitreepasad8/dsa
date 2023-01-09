@@ -445,4 +445,37 @@ object Arrays {
         return result
     }
 
+    fun threeSumHashMap(nums: IntArray): List<List<Int>> {
+        val result = arrayListOf<List<Int>>()
+
+        nums.sort()
+        if (nums[0] > 0)
+            return result
+
+        val hashMap = hashMapOf<Int, Int>()
+        for (i in nums.indices){
+            hashMap[nums[i]] = i
+        }
+
+       var i = 0
+        while (i < nums.size - 2){
+            if (nums[i] > 0)
+                break
+
+            var j = i+1
+            while (j < nums.size - 1){
+                val required = -1*(nums[i] + nums[j])
+                val f = hashMap[required]
+                if (f != null && f > j) {
+                    result.add(listOf(nums[i], nums[j], nums[f]))
+                }
+                j = hashMap.getOrDefault(nums[j], j)
+                j++
+            }
+            i = hashMap.getOrDefault(nums[i], i)
+            i++
+        }
+        return result
+    }
+
 }
