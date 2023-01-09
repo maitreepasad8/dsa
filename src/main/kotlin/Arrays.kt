@@ -1,6 +1,7 @@
 import java.util.*
 import kotlin.Array
 import kotlin.collections.ArrayDeque
+import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 import kotlin.math.max
 import kotlin.math.min
@@ -405,4 +406,43 @@ object Arrays {
 
         return product
     }
+
+    // Leetcode 15
+    fun threeSum(nums: IntArray): List<List<Int>> {
+        val result = ArrayList<List<Int>>()
+        nums.sort()
+        if (nums[0] > 0)
+            return result
+
+        for (i in nums.indices){
+            if (nums[i] > 0)
+                break
+
+            if (i>0 && nums[i]==nums[i-1])
+                continue
+
+            var low = i+1
+            var high = nums.size - 1
+            var sum = 0
+
+            while (low < high){
+                sum = nums[i] + nums[low] + nums[high]
+
+                if (sum < 0) low++
+                else if(sum > 0) high--
+                else{
+                    result.add(listOf( nums[i], nums[low], nums[high]))
+
+                    var lastLow = nums[low]
+                    var lastHigh = nums[high]
+
+                    while (low < high && nums[low]==lastLow) low++
+                    while (low < high && nums[high]==lastHigh) high--
+
+                }
+            }
+        }
+        return result
+    }
+
 }
