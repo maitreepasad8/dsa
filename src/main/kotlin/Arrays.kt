@@ -478,4 +478,21 @@ object Arrays {
         return result
     }
 
+    // Leetcode 11
+    fun maxArea(height: IntArray): Int {
+        var result = 0
+
+        var i = 0
+        var j = height.size - 1
+
+        while (i < j){
+            val area = (j-i)* min(height[i],height[j])
+            result= max(area,result)
+
+            if (height[i]<height[j]) i++
+            else j--
+        }
+        return result
+    }
+
 }
