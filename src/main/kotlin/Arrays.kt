@@ -495,4 +495,28 @@ object Arrays {
         return result
     }
 
+    // Leetcode 239
+    fun maxSlidingWindow(nums: IntArray, k: Int): IntArray {
+        val result = IntArray(nums.size-k+1){0}
+
+        // using ArrayDeque was timing out
+        val q : Deque<Int> = LinkedList()
+        var resultIndex = 0
+
+        for (i in nums.indices) {
+            while (q.isNotEmpty() && q.first() < i-k+1) {
+                q.removeFirst()
+            }
+            while (q.isNotEmpty() && nums[q.last()] < nums[i]) {
+                q.removeLast()
+            }
+            q.addLast(i)
+
+            if(i >= k-1){
+                result[resultIndex++]=nums[q.first()]
+            }
+        }
+        return result
+    }
+
 }

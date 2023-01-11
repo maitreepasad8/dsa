@@ -1,6 +1,6 @@
 
 fun main() {
-    println(Arrays.maxArea(intArrayOf(1,8,6,2,5,4,8,3,7)))
+    Arrays.maxSlidingWindow(intArrayOf(1,3,-1,-3,5,3,6,7), 3).forEach { print("$it ") }
 }
 
 
