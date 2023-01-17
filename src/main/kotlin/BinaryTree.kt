@@ -127,16 +127,32 @@ class BinaryTree {
     fun insertLevelOrder(key: Int) {
         return insertLevelOrder(this.root, key)
     }
+
+    // Leetcode 226
+    private fun invertTree(root: Node?): Node? {
+        if (root == null) return null
+        val tree = Node(root.data)
+        tree.left = invertTree(root.right)
+        tree.right = invertTree(root.left)
+        return tree
+    }
+
+    fun invertTree() {
+        this.root =  invertTree(this.root)
+    }
 }
 
 fun main() {
-    val bt = BinaryTree(10)
-    bt.root?.left = Node(11)
-    bt.root?.right = Node(9)
-    bt.root?.left?.left = Node(7)
+    val bt = BinaryTree(4)
 
-    bt.root?.right?.left = Node(15)
-    bt.root?.right?.right = Node(8)
+    bt.root?.left = Node(2)
+    bt.root?.right = Node(7)
+
+    bt.root?.left?.left = Node(1)
+    bt.root?.left?.right = Node(3)
+
+    bt.root?.right?.left = Node(6)
+    bt.root?.right?.right = Node(9)
 
 //    println(bt.height())
 //    println(bt.diameter())
@@ -149,4 +165,7 @@ fun main() {
 //    bt.insertLevelOrder(12)
 //    bt.inOrder()
 
+    bt.levelOrder()
+    bt.invertTree()
+    bt.levelOrder()
 }
