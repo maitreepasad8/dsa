@@ -140,6 +140,16 @@ class BinaryTree {
     fun invertTree() {
         this.root =  invertTree(this.root)
     }
+
+    // Leetcode 100
+    private fun sameTree(p: Node?, q: Node?): Boolean {
+        if (p == null && q == null) return true
+        return if (p != null && q != null) {
+            if (p.data == q.data) {
+                sameTree(p.left, q.left) && sameTree(p.right, q.right)
+            } else false
+        } else false
+    }
 }
 
 fun main() {
