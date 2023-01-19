@@ -79,12 +79,17 @@ class BinaryTree {
         }
     }
 
-    private fun currentLevel(node: Node?, level: Int) {
-        if (node == null) return
-        if (level == 1) print("${node.data} ")
-        else {
-            currentLevel(node.left, level - 1)
-            currentLevel(node.right, level - 1)
+    private fun currentLevel(node: Node?, level: Int): List<Int> {
+        val l = arrayListOf<Int>()
+        if (node == null) return l
+        return if (level == 1) {
+            print("${node.data} ")
+            l.add(node.data)
+            l
+        } else {
+            l.addAll(currentLevel(node.left, level - 1))
+            l.addAll(currentLevel(node.right, level - 1))
+            l
         }
     }
 
@@ -151,6 +156,7 @@ class BinaryTree {
         } else false
     }
 
+    // Leetcode 236
     fun findLCA(p: Int, q: Int): Int {
 //        return findLCA(this.root, p, q)
         return findLCASingleTraversal(this.root, p, q)?.data ?: -1
@@ -197,6 +203,21 @@ class BinaryTree {
         path.removeLast()
         return false
     }
+
+    // Leetcode 199
+    fun rightSideView(): List<Int> {
+        return rightSideView(this.root)
+    }
+
+    private fun rightSideView(root: Node?): List<Int> {
+        val view = arrayListOf<Int>()
+        if (root == null) return view
+        for (i in 1..height(root)) {
+            val level = currentLevel(root, i)
+            view.add(level.last())
+        }
+        return view
+    }
 }
 
 fun main() {
@@ -211,18 +232,5 @@ fun main() {
     bt.root?.right?.left = Node(6)
     bt.root?.right?.right = Node(9)
 
-//    println(bt.height())
-//    println(bt.diameter())
-//    bt.inOrder()
-//    bt.preOrder()
-//    bt.postOrder()
-//    bt.levelOrder()
-
-//    bt.inOrder()
-//    bt.insertLevelOrder(12)
-//    bt.inOrder()
-
-    bt.levelOrder()
-
-    println(bt.findLCA(6,3))
+    println(bt.rightSideView())
 }
