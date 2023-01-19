@@ -150,6 +150,53 @@ class BinaryTree {
             } else false
         } else false
     }
+
+    fun findLCA(p: Int, q: Int): Int {
+//        return findLCA(this.root, p, q)
+        return findLCASingleTraversal(this.root, p, q)?.data ?: -1
+    }
+
+    private fun findLCASingleTraversal(root: Node?, p: Int, q: Int): Node? {
+        if (root == null) return null
+        if (root.data == p || root.data == q) return root
+
+        val leftLCA = findLCASingleTraversal(root.left, p, q)
+        val rightLCA = findLCASingleTraversal(root.right, p, q)
+
+        if (leftLCA != null && rightLCA != null) return root
+        return leftLCA ?: rightLCA
+
+    }
+
+    private fun findLCA(root: Node?, p: Int, q: Int): Int {
+        val path1 = arrayListOf<Int>()
+        val path2 = arrayListOf<Int>()
+        if (!findPath(root, p, path1) || !findPath(root, q, path2)) return  -1
+
+        var i = 0
+        while (i < path1.size && i < path2.size) {
+            if (path1[i] != path2[i]) break
+            i++
+        }
+
+        return path1[i-1]
+    }
+
+    // Finds the path from root node to given root of the
+    // tree, Stores the path in arrayList path, returns
+    // true if path exists otherwise false
+    private fun findPath(root: Node?, n: Int, path: ArrayList<Int>): Boolean {
+        if (root == null) return  false
+
+        path.add(root.data)
+
+        if (root.data == n) return true
+        if (root.left != null && findPath(root.left, n, path)) return true
+        if (root.right != null && findPath(root.right, n, path)) return true
+
+        path.removeLast()
+        return false
+    }
 }
 
 fun main() {
@@ -176,6 +223,6 @@ fun main() {
 //    bt.inOrder()
 
     bt.levelOrder()
-    bt.invertTree()
-    bt.levelOrder()
+
+    println(bt.findLCA(6,3))
 }
