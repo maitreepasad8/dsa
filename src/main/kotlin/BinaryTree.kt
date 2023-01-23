@@ -146,16 +146,6 @@ class BinaryTree {
         this.root =  invertTree(this.root)
     }
 
-    // Leetcode 100
-    private fun sameTree(p: Node?, q: Node?): Boolean {
-        if (p == null && q == null) return true
-        return if (p != null && q != null) {
-            if (p.data == q.data) {
-                sameTree(p.left, q.left) && sameTree(p.right, q.right)
-            } else false
-        } else false
-    }
-
     // Leetcode 236
     fun findLCA(p: Int, q: Int): Int {
 //        return findLCA(this.root, p, q)
@@ -220,6 +210,27 @@ class BinaryTree {
     }
 }
 
+// Leetcode 100
+private fun sameTree(p: Node?, q: Node?): Boolean {
+    if (p == null && q == null) return true
+    return if (p != null && q != null) {
+        if (p.data == q.data) {
+            sameTree(p.left, q.left) && sameTree(p.right, q.right)
+        } else false
+    } else false
+}
+
+
+// Leetcode 572: check if p is a subtree of q
+fun isSubTree(p: Node?, q: Node?): Boolean {
+    return when {
+        (p == null) -> true
+        (q == null) -> false
+        sameTree(p, q) -> true
+        else -> isSubTree(p, q.left) || isSubTree(p, q.right)
+    }
+}
+
 fun main() {
     val bt = BinaryTree(4)
 
@@ -232,5 +243,21 @@ fun main() {
     bt.root?.right?.left = Node(6)
     bt.root?.right?.right = Node(9)
 
-    println(bt.rightSideView())
+//    println(bt.rightSideView())
+
+
+    val p = Node(3)
+    p.left = Node(4)
+    p.right = Node(5)
+
+    p.left?.left = Node(1)
+    p.left?.right = Node(2)
+
+    p.left?.right?.left = Node(0)
+
+    val q = Node(4)
+    q.left = Node(1)
+    q.right = Node(2)
+
+    println(isSubTree(q, p))
 }
