@@ -35,13 +35,6 @@ class BinaryTree {
         return diameter(this.root)
     }
 
-    private fun inOrder(node: Node?) {
-        if (node == null) return
-        inOrder(node.left)
-        print("${node.data} ")
-        inOrder(node.right)
-    }
-
     fun inOrder() {
         println()
         return inOrder(this.root)
@@ -231,33 +224,35 @@ fun isSubTree(p: Node?, q: Node?): Boolean {
     }
 }
 
+// Leetcode 105:Construct Binary Tree from Preorder and Inorder Traversal
+
+fun buildTree(preorder: IntArray, inorder: IntArray): Node? {
+    val hashmap: HashMap<Int, Int> = hashMapOf()
+    for (i in inorder.indices) hashmap[inorder[i]] = i
+    return constructTree(preorder, 0, inorder.size - 1, 0, hashmap)
+}
+
+fun constructTree(preorder: IntArray, left: Int, right: Int, preIndex: Int, map: HashMap<Int, Int>): Node? {
+
+    if (left > right || preIndex > preorder.size - 1) return null
+
+    val rootVal = preorder[preIndex]
+    val root = Node(rootVal)
+
+    val inIndex = map[rootVal] ?: 0
+    root.left = constructTree(preorder, left, inIndex - 1, preIndex+1, map)
+    root.right = constructTree(preorder, inIndex + 1, right, preIndex + inIndex - left + 1, map)
+    return root
+}
+
+fun inOrder(node: Node?) {
+    if (node == null) return
+    inOrder(node.left)
+    print("${node.data} ")
+    inOrder(node.right)
+}
+
 fun main() {
-    val bt = BinaryTree(4)
-
-    bt.root?.left = Node(2)
-    bt.root?.right = Node(7)
-
-    bt.root?.left?.left = Node(1)
-    bt.root?.left?.right = Node(3)
-
-    bt.root?.right?.left = Node(6)
-    bt.root?.right?.right = Node(9)
-
-//    println(bt.rightSideView())
-
-
-    val p = Node(3)
-    p.left = Node(4)
-    p.right = Node(5)
-
-    p.left?.left = Node(1)
-    p.left?.right = Node(2)
-
-    p.left?.right?.left = Node(0)
-
-    val q = Node(4)
-    q.left = Node(1)
-    q.right = Node(2)
-
-    println(isSubTree(q, p))
+    val bt = buildTree(intArrayOf(1,2), intArrayOf(1,2))
+    println(inOrder(bt))
 }
