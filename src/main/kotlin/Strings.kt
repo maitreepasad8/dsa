@@ -96,4 +96,37 @@ object Strings {
         }
         return count
     }
+
+    // Leetcode 242: Valid Anagram
+    fun isAnagram(s: String, t: String): Boolean {
+        if (s.length != t.length) return false
+
+        val freqs = IntArray(26){0}
+        for (i in s) {
+            freqs[i-'a']++
+        }
+        for (i in t) {
+            freqs[i-'a']--
+        }
+        for (i in freqs) {
+            if (i != 0) return false
+        }
+        return true
+    }
+
+    // Leetcode 49: Group Anagrams
+    fun groupAnagrams(strs: Array<String>): List<List<String>> {
+        val hm = hashMapOf<String, ArrayList<String>>()
+        for (s in strs) {
+            val sorted = String(s.toCharArray().sortedArray())
+            if (!hm.containsKey(sorted)) hm[sorted] = arrayListOf(s)
+            else hm[sorted]?.add(s)
+        }
+        return hm.values.toList()
+    }
+}
+
+fun main() {
+//    println(Strings.isAnagram("rat", "art"))
+    println(Strings.groupAnagrams(arrayOf("eat","tea","tan","ate","nat","bat")))
 }
