@@ -1,3 +1,5 @@
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.max
 
 object Strings {
@@ -124,9 +126,26 @@ object Strings {
         }
         return hm.values.toList()
     }
+
+    // Leetcode 125: Valid Palindrome
+    fun isPalindrome(s: String): Boolean {
+        var i = 0
+        var j = s.length - 1
+        while (i <= j)  {
+            if (!s[i].isLetterOrDigit()) i++
+            else if (!s[j].isLetterOrDigit()) j--
+            else {
+                if (s[i].lowercase() != s[j].lowercase()) return false
+                i++
+                j--
+            }
+        }
+        return true
+    }
 }
 
 fun main() {
 //    println(Strings.isAnagram("rat", "art"))
-    println(Strings.groupAnagrams(arrayOf("eat","tea","tan","ate","nat","bat")))
+//    println(Strings.groupAnagrams(arrayOf("eat","tea","tan","ate","nat","bat")))
+    println(Strings.isPalindrome(".,"))
 }
