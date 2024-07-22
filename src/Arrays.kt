@@ -1,4 +1,20 @@
 class Arrays {
+    //Leetcode 80
+    fun removeDuplicatesV2(nums: IntArray): Int {
+        val n = nums.size
+        if(n<=2){
+            return n
+        }
+
+        var j = 2
+        for (i in 2..<n) {
+            if(nums[i] !== nums[j-2]){
+                nums[j++]=nums[i]
+            }
+        }
+        return j
+    }
+
     // Leetcode 26
     // https://leetcode.com/problems/remove-duplicates-from-sorted-array/
     fun removeDuplicates(nums: IntArray): Int {
