@@ -1,4 +1,23 @@
 class Arrays {
+    // Leetcode 169
+    fun majorityElement(nums: IntArray): Int {
+        // Moore Voting algo
+        var count = 0
+        var candidate = 0
+        for (n in nums){
+            if(count == 0){
+                candidate = n
+            }
+            if(n == candidate){
+                count++
+            } else {
+                count--
+            }
+
+        }
+        return candidate
+    }
+
     //Leetcode 80
     fun removeDuplicatesV2(nums: IntArray): Int {
         val n = nums.size
