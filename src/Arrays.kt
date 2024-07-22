@@ -1,4 +1,16 @@
 class Arrays {
+    // Leetcode 26
+    // https://leetcode.com/problems/remove-duplicates-from-sorted-array/
+    fun removeDuplicates(nums: IntArray): Int {
+        var k = 1
+        for (i in 1..<(nums.size)) {
+            if(nums[i-1]!=nums[i]){
+                nums[k++] = nums[i]
+            }
+        }
+        return k
+    }
+
     // Leetcode 27
     // https://leetcode.com/problems/remove-element/
     fun removeElementSimplified(nums: IntArray, n: Int): Int {
