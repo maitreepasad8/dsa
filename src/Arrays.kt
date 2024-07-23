@@ -1,4 +1,47 @@
+import kotlin.math.max
+
 class Arrays {
+    // Leetcode 121
+    fun maxProfit(prices: IntArray): Int {
+        val n = prices.size
+        var l = 0
+        var r = 1
+        var profit = 0
+        while(r < n){
+            if(prices[r] < prices[l]){
+                l = r
+            }else {
+                profit = max(profit, prices[r] - prices[l])
+                r++
+            }
+        }
+        return profit
+    }
+
+    // Leetcode 189
+    fun rotate(nums: IntArray, x: Int): Unit {
+        var k = x
+        while(k > nums.size) {
+            k -= nums.size
+        }
+        if(k == nums.size) {
+            return
+        }
+        reverse(nums, 0, nums.size-1)
+        reverse(nums, 0, k-1)
+        reverse(nums, k, nums.size-1)
+    }
+
+    fun reverse(nums: IntArray, start: Int, end: Int) {
+        var l = start
+        var r = end
+        while (l < r) {
+            swap(nums, l, r)
+            l++
+            r--
+        }
+    }
+
     // Leetcode 169
     fun majorityElement(nums: IntArray): Int {
         // Moore Voting algo
@@ -143,15 +186,7 @@ class Arrays {
 fun main () {
     val arrays = Arrays()
 
-    val nums = intArrayOf(0,1,2,2,3,0,4,2)
-    val nums1 = intArrayOf(3,2,2,3)
-    val nums2 = intArrayOf(0,4,4,0,4,4,4,0,2)
-    val nums3 = intArrayOf(1)
-    val nums4 = intArrayOf(2,2,3)
-    println( arrays.removeElement(nums, 2))
-    println( arrays.removeElement(nums1, 3))
-    println( arrays.removeElement(nums2, 4))
-    println( arrays.removeElement(nums3, 1))
-    println( arrays.removeElement(nums4, 2))
+    val nums = intArrayOf(7,2,3,4,5,6,7)
+    println(arrays.maxProfit(nums))
 
 }
