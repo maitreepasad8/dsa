@@ -1,6 +1,49 @@
 import kotlin.math.max
 
 class Arrays {
+    // Leetcode 55
+    fun canJump(nums: IntArray): Boolean {
+        val n = nums.size
+        if(n == 1){
+            return true
+        }
+        if(nums[0] == 0){
+            return false
+        }
+        if(nums[0] >= n-1){
+            return true
+        }
+
+        var k = n-1
+        for (i in n-2 downTo 0){
+            if(nums[i] >=  k - i){
+                k = i
+                if(i == 0){
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
+    // Leetcode 122
+    fun maxProfit2(prices: IntArray): Int {
+        var profit = 0
+        var l = 0
+        var r = 1
+        var n = prices.size
+        while (r < n){
+            if(prices[r]>= prices[l]){
+                profit += prices[r]-prices[l]
+            }
+            l++
+            r++
+
+        }
+
+        return profit
+    }
+
     // Leetcode 121
     fun maxProfit(prices: IntArray): Int {
         val n = prices.size
@@ -186,7 +229,7 @@ class Arrays {
 fun main () {
     val arrays = Arrays()
 
-    val nums = intArrayOf(7,2,3,4,5,6,7)
-    println(arrays.maxProfit(nums))
+    val nums = intArrayOf(1,1,3,0,0,1,4)
+    println(arrays.canJump(nums))
 
 }
