@@ -1,3 +1,4 @@
+import utils.swap
 import kotlin.math.max
 
 class Arrays {
@@ -143,6 +144,7 @@ class Arrays {
         }
         return k
     }
+
     fun removeElement(nums: IntArray, n: Int): Int {
         var k = 0
         var l = 0
@@ -209,19 +211,6 @@ class Arrays {
         for (i in 0..<m+n) {
             nums1[i] = arr[i]
         }
-    }
-
-    fun swap(arr: IntArray, i : Int, j: Int) {
-        val temp = arr[i]
-        arr[i]=arr[j]
-        arr[j]=temp
-    }
-
-    fun printArray(array: IntArray) {
-        for (i in array){
-            print("$i ")
-        }
-        println()
     }
 
 }
