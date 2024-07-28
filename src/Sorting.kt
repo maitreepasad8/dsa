@@ -15,12 +15,31 @@ class Sorting {
             swap(nums, i, min)
         }
     }
+
+    fun selectionSortRecursive(nums: IntArray, i: Int){
+        if(i > 0){
+            val j = findMaxIndex(nums, i)
+            swap(nums, i, j)
+            selectionSortRecursive(nums, i-1)
+        }
+    }
+
+    fun findMaxIndex(nums: IntArray, i: Int): Int {
+        // find index of maximum element in nums[:i+1] recursively
+        if (i > 0){
+            val j =  findMaxIndex(nums, i-1)
+            if (nums[j] > nums[i]) {
+                return j
+            }
+        }
+        return i
+    }
 }
 
 fun main () {
     val sorting = Sorting()
     val nums = intArrayOf(8,4,3,2,9)
-    sorting.selectionSort(nums)
+    sorting.selectionSortRecursive(nums, nums.size - 1)
     printArray(nums)
 
 }
