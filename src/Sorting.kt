@@ -34,12 +34,24 @@ class Sorting {
         }
         return i
     }
+
+    fun insertionSort(nums: IntArray) {
+        for (i in nums.indices) {
+            for (j in i downTo 1){
+                if (nums[j] < nums[j-1]) {
+                    swap(nums, j, j-1)
+                } else {
+                    break
+                }
+            }
+        }
+    }
 }
 
 fun main () {
     val sorting = Sorting()
     val nums = intArrayOf(8,4,3,2,9)
-    sorting.selectionSortRecursive(nums, nums.size - 1)
+    sorting.insertionSort(nums)
     printArray(nums)
 
 }
