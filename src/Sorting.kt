@@ -46,12 +46,47 @@ class Sorting {
             }
         }
     }
+
+    fun mergeSort(nums: IntArray) {
+        sort(nums, 0, nums.size - 1)
+    }
+
+    private fun sort(a: IntArray, l: Int, r: Int) {
+        if (l < r) {
+            val m = l + (r-l)/2
+            sort(a, l, m)
+            sort(a, m+1, r)
+            merge(a, l, m, r)
+        }
+    }
+
+    private fun merge(a: IntArray, l: Int, m: Int, r: Int) {
+        val b = IntArray(a.size)
+        for (i in a.indices) b[i] = a[i]
+
+        var i = l
+        var j = m + 1
+        var k = l
+
+        while (i <= m && j <= r) {
+           if (b[i] < b[j]) a[k++] = b[i++]
+            else a[k++] = b[j++]
+        }
+
+        while (i <= m) {
+            a[k++] = b[i++]
+        }
+
+        while (j <= r) {
+            a[k++] = b[j++]
+        }
+    }
 }
 
 fun main () {
     val sorting = Sorting()
-    val nums = intArrayOf(8,4,3,2,9)
-    sorting.insertionSort(nums)
+    val nums = intArrayOf(8,4,3,2,9,6)
+    sorting.mergeSort(nums)
     printArray(nums)
 
 }
