@@ -25,6 +25,23 @@ class Strings {
         }
         return sum
     }
+
+    // Leetcode 58
+    fun lengthOfLastWord(s: String): Int {
+        var n = s.length
+        var i = n-1
+        var count = 0
+        while(i>=0){
+            if (s[i] == ' ' && count > 0){
+                return count
+            }
+            if (s[i] != ' '){
+                count++
+            }
+            i--
+        }
+        return count
+    }
 }
 
 fun main() {

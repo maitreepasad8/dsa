@@ -38,9 +38,7 @@ class DynamicProgramming {
 }
 
 fun main () {
-    val dp = DynamicProgramming()
-    println(dp.fibonacci(10))
-    println(dp.fibonacciMemoised(10, hashMapOf()))
-    println(dp.fiboBottomUp(10))
+    val n = IntArray(10){-1}
+    println(n[1]    )
 }
 
