@@ -42,6 +42,20 @@ class Strings {
         }
         return count
     }
+
+    //Leetcode 14
+    fun longestCommonPrefix(strs: Array<String>): String {
+        val list = mutableListOf<Char>()
+        var i = 0
+        while (true){
+            if(strs.any { it.length < i+1 }) break
+            if(strs.any { it[i] != strs[0][i] }) break
+            list.add(strs[0][i++])
+
+        }
+        return list.joinToString("")
+    }
+
 }
 
 fun main() {
