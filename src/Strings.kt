@@ -56,8 +56,22 @@ class Strings {
         return list.joinToString("")
     }
 
+    // Leetcode 28
+    fun strStr(haystack: String, needle: String): Int {
+        for (i in haystack.indices) {
+            for (j in needle.indices) {
+                if (i + j >= haystack.length) return -1
+                if (haystack[i + j] != needle[j]) break
+                if (j == needle.length - 1) return i
+            }
+        }
+        return -1
+    }
+
 }
 
 fun main() {
-    println("Hello World!")
+    val strings = Strings()
+    println(strings.longestCommonPrefix(arrayOf("flower","flow","flight")))
 }
+

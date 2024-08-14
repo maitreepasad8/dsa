@@ -1,5 +1,7 @@
+import utils.printArray
 import utils.swap
 import kotlin.math.max
+import kotlin.math.min
 
 class Arrays {
     // Leetcode 55
@@ -213,12 +215,92 @@ class Arrays {
         }
     }
 
+
+    // Leetcode 45
+    fun jump(nums: IntArray): Int {
+        val n = nums.size
+        var jumps = 0
+        var l = 0
+        var r = 0
+        while (r < n-1) {
+            var farthest = 0
+            for (i in l..r){
+                farthest = max(farthest, i + nums[i])
+            }
+            l = r+1
+            r = farthest
+            jumps++
+        }
+
+        return  jumps
+    }
+
+    // Leetcode 274
+    fun hIndex(citations: IntArray): Int {
+        citations.sort()
+        val n = citations.size
+        var h = n
+        for (i in citations.indices){
+            if(citations[i] >= n-i) break
+            h--
+        }
+
+        return h
+    }
+
+    // Leetcode 238
+    fun productExceptSelf(nums: IntArray): IntArray {
+        val n = nums.size
+        val prefix = IntArray(n){1}
+        val suffix = IntArray(n){1}
+        val out = IntArray(n)
+        for(i in n-2 downTo 0){
+           suffix[i] = suffix[i+1]*nums[i+1]
+        }
+        for(i in 0..<n){
+            if(i==0){
+                prefix[i] = 1
+            } else {
+                prefix[i] = prefix[i-1]*nums[i-1]
+            }
+            out[i] = prefix[i]*suffix[i]
+        }
+
+        return out
+    }
+
+    //Leetcode 134
+    fun canCompleteCircuit(gas: IntArray, cost: IntArray): Int {
+        val n = gas.size
+        val diff = IntArray(n)
+        var sum = 0
+        var sumSoFar = 0
+        var start = 0
+        for (i in 0..<n){
+            diff[i] = gas[i]-cost[i]
+            sum+= diff[i]
+            sumSoFar += diff[i]
+            if(sumSoFar<0){
+                sumSoFar = 0
+                start = i+1
+            }
+        }
+        if(sum<0){
+            return -1
+        }
+        else {
+            return start
+        }
+    }
+
 }
 
 fun main () {
     val arrays = Arrays()
 
-    val nums = intArrayOf(1,1,3,0,0,1,4)
-    println(arrays.canJump(nums))
+    val nums = intArrayOf(1,2,3,4)
+    val b = arrays.productExceptSelf(nums)
+    printArray(b)
 
 }
+
