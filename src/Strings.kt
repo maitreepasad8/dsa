@@ -68,10 +68,35 @@ class Strings {
         return -1
     }
 
+    // Leetcode 125
+    fun isPalindrome(s: String): Boolean {
+        val n = s.length
+        var i = 0
+        var j = n-1
+        while (i<j){
+            while(i<j && !s[i].isLetter()){
+                i++
+            }
+            while(i<j && !s[j].isLetter()){
+                j--
+            }
+            println("$i $j ${s[i]} ${s[j]}")
+            if(s[i].lowercaseChar() != s[j].lowercaseChar()){
+                return false
+            }
+            i++
+            j--
+        }
+        return true
+    }
+
 }
 
 fun main() {
     val strings = Strings()
-    println(strings.longestCommonPrefix(arrayOf("flower","flow","flight")))
+    println(strings.isPalindrome(
+        "A man, a plan, a canal: Panama"
+    ))
 }
+
 

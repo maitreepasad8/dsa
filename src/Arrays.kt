@@ -293,6 +293,36 @@ class Arrays {
         }
     }
 
+    // LC 135
+    fun candy(ratings: IntArray): Int {
+        val n = ratings.size
+        var candies = 1
+        var up = 0
+        var down = 0
+        var peak = 0
+        for (i in 1..<n){
+            if (ratings[i] > ratings[i-1]){
+                up += 1
+                peak = up + 1
+                down = 0
+                candies += up + 1
+            } else if (ratings[i] < ratings[i-1]){
+                down += 1
+                up = 0
+                if (peak <= down){
+                    candies += 1
+                }
+                candies += down
+            } else {
+                up = 0
+                peak = 0
+                down = 0
+                candies += 1
+
+            }
+        }
+        return candies
+    }
 }
 
 fun main () {
@@ -303,4 +333,5 @@ fun main () {
     printArray(b)
 
 }
+
 
