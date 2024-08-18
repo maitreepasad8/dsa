@@ -323,6 +323,53 @@ class Arrays {
         }
         return candies
     }
+
+    //Leetcode 15
+    fun threeSum(nums: IntArray): List<List<Int>> {
+        val result = mutableListOf<List<Int>>()
+
+        nums.sort()
+        if(nums[0]>0) return result
+
+        val hm = hashMapOf<Int, Int>()
+        for(i in nums.indices){
+            hm[nums[i]] = i
+        }
+
+        val n = nums.size
+        var i = 0
+        var j = 0
+        while(i<n-2){
+            if(nums[i]>0) break
+            j = i+1
+            while(j < n-1){
+                val required = -nums[i]-nums[j]
+                val k = hm[required]
+                if(k != null && k>j){
+                    result.add(listOf(nums[i], nums[j], nums[k]))
+                }
+                j = hm.getOrDefault(nums[j], j) + 1
+            }
+
+            i = hm.getOrDefault(nums[i], i) + 1
+        }
+
+        return result
+    }
+
+    // Leetcode 11
+    fun maxArea(height: IntArray): Int {
+        val n = height.size
+        var area = 0
+        var l = 0
+        var r = n-1
+        while (l<r){
+            area = max(area, (r-l)*min(height[l],height[r]))
+            if(height[l] < height[r]) l++
+            else r--
+        }
+        return area
+    }
 }
 
 fun main () {
