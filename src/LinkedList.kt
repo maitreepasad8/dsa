@@ -143,6 +143,29 @@ fun reverseBetween(head: ListNode?, left: Int, right: Int): ListNode? {
     return dummy
 }
 
+// Leetcode 2: Add Two Numbers
+fun addTwoNumbers(l1: ListNode?, l2: ListNode?): ListNode? {
+    var list1 = l1
+    var list2 = l2
+    val dummy = ListNode(0)
+    var curr = dummy
+    var carry = 0
+    while(list1 != null || list2 != null){
+        val sum = (list1?.`val`?:0) + (list2?.`val`?:0) + carry
+        carry = sum / 10
+        val value = sum % 10
+
+        curr.next = ListNode(value)
+        curr = curr.next!!
+        list1 = list1?.next
+        list2 = list2?.next
+    }
+    if(carry != 0){
+        curr.next = ListNode(carry)
+    }
+    return dummy.next
+}
+
 fun printList(head: ListNode?){
     var curr = head
     while (curr != null){
@@ -153,11 +176,10 @@ fun printList(head: ListNode?){
 }
 
 fun main() {
-    val head = ListNode(1)
-    head.next = ListNode(2)
-    head.next?.next = ListNode(3)
-    head.next?.next?.next = ListNode(4)
-    head.next?.next?.next?.next = ListNode(5)
-    val h1 = reverseBetween(head, 1, 4)
-    printList(h1)
+    val l1 = ListNode(7)
+    val l2 = ListNode(9)
+
+    val sum = addTwoNumbers(l1, l2)
+    printList(sum)
+
 }

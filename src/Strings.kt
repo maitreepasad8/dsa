@@ -110,6 +110,38 @@ class Strings {
     }
 }
 
+fun longestPalindrome(s: String): String {
+    var lp = ""
+    var max = 0
+    val n = s.length
+
+    for(i in s.indices){
+        // check for odd length palindromes
+        var l = i
+        var r = i
+        while(l>=0 && r<n && s[l] == s[r]){
+            if(r-l+1 > max){
+                lp = s.slice(l..r)
+                max = r-l+1
+            }
+            l--
+            r++
+        }
+
+        // check for even length palindromes
+        l = i
+        r = i+1
+        while(l>=0 && r<n && s[l] == s[r]){
+            if(r-l+1 > max){
+                lp = s.slice(l..r)
+                max = r-l+1
+            }
+            l--
+            r++
+        }
+    }
+    return lp
+}
 fun main() {
     val strings = Strings()
     println(strings.isPalindrome(
