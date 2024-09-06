@@ -372,6 +372,30 @@ class Arrays {
     }
 }
 
+// Leetcode 42: Trapping Rain Water
+fun trap(height: IntArray): Int {
+    val n = height.size
+    if (n < 3) return 0
+    val lm = IntArray(n)
+    lm[0] = height[0]
+    val rm = IntArray(n)
+    rm[n-1] = height[n-1]
+    for(i in 1..<n){
+        lm[i] = max(lm[i-1], height[i])
+        rm[n-1-i] = max(rm[n-i], height[n-1-i])
+    }
+
+    var water = 0
+    for(i in 1..<n-1){
+        val level = min(lm[i], rm[i])
+        if(height[i] < level ){
+            water += level - height[i]
+        }
+    }
+
+    return water
+
+}
 fun main () {
     val arrays = Arrays()
 
