@@ -1,8 +1,8 @@
 import kotlin.math.max
 
 class Node(var value: Int) {
-    var left: Node? = null
-    var right: Node? = null
+    var left: GraphNode? = null
+    var right: GraphNode? = null
 }
 
 class TreeNode(var `val`: Int) {
@@ -10,30 +10,30 @@ class TreeNode(var `val`: Int) {
     var right: TreeNode? = null
 }
 
-fun inOrderTraversal(root: Node?) {
+fun inOrderTraversal(root: GraphNode?) {
     if(root == null) return
     inOrderTraversal(root.left)
     print("${root.value} ")
     inOrderTraversal(root.right)
 }
 
-fun preOrderTraversal(root: Node?){
+fun preOrderTraversal(root: GraphNode?){
     if (root == null) return
     print("${root.value} ")
     preOrderTraversal(root.left)
     preOrderTraversal(root.right)
 }
 
-fun postOrderTraversal(root: Node?){
+fun postOrderTraversal(root: GraphNode?){
     if (root == null) return
     postOrderTraversal(root.left)
     postOrderTraversal(root.right)
     print("${root.value} ")
 }
 
-fun levelOrderTraversal(root: Node?){
+fun levelOrderTraversal(root: GraphNode?){
     if (root == null) return
-    val q = ArrayDeque<Node>()
+    val q = ArrayDeque<GraphNode>()
     q.addLast(root)
     while (q.isNotEmpty()){
         val curr = q.removeFirst()
@@ -43,16 +43,16 @@ fun levelOrderTraversal(root: Node?){
     }
 }
 
-fun insertInTree(root: Node, key: Int){
-    val q = ArrayDeque<Node>()
+fun insertInTree(root: GraphNode, key: Int){
+    val q = ArrayDeque<GraphNode>()
     q.addLast(root)
     while (q.isNotEmpty()){
         val curr = q.removeFirst()
         if (curr.left == null){
-            curr.left = Node(key)
+            curr.left = GraphNode(key)
             return
         } else if (curr.right == null){
-            curr.right = Node(key)
+            curr.right = GraphNode(key)
             return
         } else {
             q.addLast(curr.left!!)
@@ -116,11 +116,11 @@ fun isSameTreeLevelOrder(p: TreeNode?, q: TreeNode?): Boolean {
 
 fun main() {
 
-    val root = Node(1)
-    root.left = Node(2)
-    root.right = Node(3)
-    root.left?.left = Node(4)
-    root.left?.right = Node(5)
-    root.right?.left = Node(6)
-    root.right?.right = Node(7)
+    val root = GraphNode(1)
+    root.left = GraphNode(2)
+    root.right = GraphNode(3)
+    root.left?.left = GraphNode(4)
+    root.left?.right = GraphNode(5)
+    root.right?.left = GraphNode(6)
+    root.right?.right = GraphNode(7)
 }

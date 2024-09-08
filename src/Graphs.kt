@@ -87,3 +87,59 @@ fun dfs(grid: Array<IntArray>, i: Int, j: Int, m: Int, n: Int,dp: Array<IntArray
     return dp[i][j]
 }
 
+
+// Leetcode 399: Evaluate Division
+class GraphNode(val value: String) {
+    val neighbours: HashMap<String, Double> = hashMapOf()
+}
+fun calcEquation(equations: List<List<String>>, values: DoubleArray, queries: List<List<String>>): DoubleArray {
+    val graph = hashMapOf<String, GraphNode>()
+
+
+    // create graph
+    for (i in equations.indices) {
+        val equation = equations[i]
+        val (a,b) = equation
+        val node1 = graph.getOrPut(a){GraphNode(a)}
+        node1.neighbours[b] = values[i]
+
+        val node2 = graph.getOrPut(b){GraphNode(b)}
+        node2.neighbours[a] = 1/values[i]
+    }
+
+    val answers = DoubleArray(queries.size){-1.0}
+    queries.forEachIndexed{ i, q ->
+        val (a,b) = q
+        if(!graph.containsKey(a) || !graph.containsKey(b)) {
+            return@forEachIndexed
+        }
+        if(a == b){
+            answers[i] = 1.0
+            return@forEachIndexed
+        }
+        answers[i] = bfs(graph[a]!!, graph[b]!!, graph)
+    }
+    return answers
+}
+
+fun bfs(node1: GraphNode, node2: GraphNode, graph: HashMap<String, GraphNode>): Double {
+    val q = ArrayDeque<Pair<GraphNode, Double>>()
+    q.addLast(node1 to 1.0)
+
+    val visited = mutableSetOf(node1.value)
+
+    while (q.isNotEmpty()){
+        val (node, weight) = q.removeFirst()
+        if (node.value == node2.value) {
+            return weight
+        } else {
+            node.neighbours.forEach{(n,w) ->
+                if (!visited.contains(n)){
+                    q.addLast(graph[n]!! to w * weight)
+                    visited.add(n)
+                }
+            }
+        }
+    }
+    return -1.0
+}
