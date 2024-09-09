@@ -1,4 +1,5 @@
-import java.util.ArrayList
+import java.util.*
+import kotlin.collections.HashMap
 import kotlin.math.max
 import kotlin.math.min
 
@@ -201,4 +202,38 @@ fun nthUglyNumber(n: Int): Int {
         if(dp[i] ==  product5) p5++;
     }
     return dp[n]
+}
+
+// Leetcode 975: Odd Even Jump
+fun oddEvenJumps(arr: IntArray): Int {
+    var result = 1
+    val n = arr.size
+    // higher[i] is true if you can jump to end in odd numbered jump
+    val higher = BooleanArray(n)
+
+    // lower[i] is true if you can jump to end in even numbered jump
+    val lower = BooleanArray(n)
+    higher[n-1] = true
+    lower[n-1] = true
+
+    // map to store number to index map, and find next higher and next lower easily
+    val map = TreeMap<Int, Int>()
+    map[arr[n-1]] = n-1
+    for (i in n-2 downTo 0){
+        val h = map.ceilingEntry(arr[i])
+        val l = map.floorEntry(arr[i])
+
+        if(h != null){
+            higher[i] = lower[h.value]
+        }
+        if(l != null){
+            lower[i] = higher[l.value]
+        }
+        if(higher[i]){
+            result++
+        }
+        map[arr[i]] = i
+    }
+
+    return result
 }
