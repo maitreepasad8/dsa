@@ -204,7 +204,6 @@ fun nthUglyNumber(n: Int): Int {
     return dp[n]
 }
 
-<<<<<<< Updated upstream
 // Leetcode 975: Odd Even Jump
 fun oddEvenJumps(arr: IntArray): Int {
     var result = 1
@@ -238,7 +237,8 @@ fun oddEvenJumps(arr: IntArray): Int {
 
     return result
 }
-=======
+
+
 // Leetcode 72: Edit Distance
 fun minDistance(word1: String, word2: String): Int {
     val m = word1.length
@@ -299,4 +299,4 @@ fun longestCommonSubsequence(text1: String, text2: String): Int {
     }
     return dp[0][0]
 }
->>>>>>> Stashed changes
+
