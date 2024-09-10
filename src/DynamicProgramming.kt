@@ -204,6 +204,7 @@ fun nthUglyNumber(n: Int): Int {
     return dp[n]
 }
 
+<<<<<<< Updated upstream
 // Leetcode 975: Odd Even Jump
 fun oddEvenJumps(arr: IntArray): Int {
     var result = 1
@@ -237,3 +238,65 @@ fun oddEvenJumps(arr: IntArray): Int {
 
     return result
 }
+=======
+// Leetcode 72: Edit Distance
+fun minDistance(word1: String, word2: String): Int {
+    val m = word1.length
+    val n = word2.length
+
+    val dp = Array(m+1){IntArray(n+1)}
+
+    for(i in m downTo 0){
+        for (j in n downTo 0){
+            if (i == m) {
+                dp[i][j] = n-j
+            } else if (j == n) {
+                dp[i][j] = m - i
+            } else {
+                if(word1[i]==word2[j]) {
+                    dp[i][j] = dp[i+1][j+1]
+                } else {
+                    dp[i][j] = 1 + minOf(
+                        dp[i][j+1],
+                        dp[i+1][j],
+                        dp[i+1][j+1]
+                    )
+                }
+            }
+        }
+    }
+    return dp[0][0]
+}
+
+// Leetcode 1143: Longest Common Subsequence
+fun longestCommonSubsequence(text1: String, text2: String): Int {
+    val m = text1.length
+    val n = text2.length
+
+    val dp = Array(m+1){IntArray(n+1)}
+
+    for(i in m downTo 0){
+        for (j in n downTo 0){
+            if (i == m) {
+                dp[i][j] = 0
+            } else if (j == n) {
+                dp[i][j] = 0
+            } else {
+                if(text1[i]==text2[j]) {
+                    dp[i][j] = maxOf(
+                        1+dp[i+1][j+1],
+                        dp[i+1][j],
+                        dp[i][j+1]
+                    )
+                } else {
+                    dp[i][j] = maxOf(
+                        dp[i+1][j],
+                        dp[i][j+1]
+                    )
+                }
+            }
+        }
+    }
+    return dp[0][0]
+}
+>>>>>>> Stashed changes
