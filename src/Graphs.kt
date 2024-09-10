@@ -143,3 +143,38 @@ fun bfs(node1: GraphNode, node2: GraphNode, graph: HashMap<String, GraphNode>): 
     }
     return -1.0
 }
+
+
+// Leetcode 210: Course schedule II
+fun findOrder(numCourses: Int, prerequisites: Array<IntArray>): ArrayList<Int> {
+    val order = ArrayList<Int>()
+    val graph = Array<ArrayList<Int>>(numCourses){ arrayListOf() }
+
+    // build adjacency list of prerequisites
+    for ((a,b) in prerequisites) {
+        graph[a].add(b)
+    }
+
+    val visited = HashSet<Int>()
+    val cycle = HashSet<Int>()
+
+    fun dfs(c: Int): Boolean {
+        if (c in cycle) return false
+        if (c in visited) return true
+
+        cycle.add(c)
+        for (p in graph[c]){
+            if (!dfs(p)) return false
+        }
+        cycle.remove(c)
+        visited.add(c)
+        order.add(c)
+        return true
+    }
+
+    for (c in 0..<numCourses){
+        if (!dfs(c)) return arrayListOf()
+    }
+
+    return order
+}
