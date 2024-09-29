@@ -72,6 +72,30 @@ fun subsets(nums: IntArray): List<List<Int>> {
     return result
 }
 
+// Lc 90: Subsets II
+fun subsetsWithDup(nums: IntArray): List<List<Int>> {
+    val n = nums.size
+    val result = HashSet<List<Int>>()
+
+    fun combine(start: Int, k: Int, current: MutableList<Int>){
+        if (current.size == k) {
+            result.add(emptyList<Int>()+current)
+            return
+        }
+        for (i in start..<n){
+            current.add(nums[i])
+            combine(i+1, k, current)
+            current.remove(nums[i])
+        }
+    }
+
+    nums.sort()
+    for(k in 0..n){
+        combine(0,k,mutableListOf<Int>())
+    }
+    return result.toList()
+}
+
 fun main(){
     intArrayOf(1,2,3).max()
     println(combine(4,2))
